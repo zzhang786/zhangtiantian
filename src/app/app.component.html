@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="Zan Zhang" Email="zz93@rice.edu" content="width=device-width, initial-scale=1">
+  <title>main</title>
+  <!--load bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!--# load bootstrap-->
+</head>
+
+<body>
+<mat-toolbar>
+
+  <div *ngIf="currentUserName!=null&&currentUserName!=''">
+    <div>
+      <img class="avatar mat-elevation-z8" src={{currentUserInfo.avatar}} (click)="changeSideBar()"/>
+    </div>
+  </div>
+  <p> Welcome to My WorldApp™</p>
+</mat-toolbar>
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="mat-elevation-z8">
+
+    <button mat-button class="menu-button" (click)="toLanding()">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-button class="menu-button" (click)="toMain()">
+      <mat-icon>person</mat-icon>
+      <span>Main Page</span>
+    </button>
+    <button mat-button class="menu-button" (click)="toProfile()">
+      <mat-icon>info</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-button class="menu-button" (click)="logOut()">
+      <mat-icon>home</mat-icon>
+      <span>LogOut</span>
+    </button>
+    <img class="avatar mat-elevation-z8" src={{currentUserInfo.avatar}} />
+
+    <h4 class="name" id="name">{{currentUserInfo.username}}</h4>
+    <h4 class="name" >{{currentUserInfo.headline}}</h4>
+    <!--<p class="designation">Hello</p >-->
+
+    <div *ngIf="currentUserName">
+      <input placeholder="Add Following Friends" [(ngModel)]="userNameToAdd">
+      <!--<button mat-button class="menu-button" (click)="addFollowing()">
+          Add
+      </button>-->
+      <button type="button" class="btn btn-info" (click)="addFollowing()">Add</button>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div *ngFor="let elem of relations">
+      <img class="avatar mat-elevation-z8" src={{elem.avatar}} (click)="changeUserToShow(elem.username)"/>
+      <button mat-button class="menu-button" (click)="unfollow(elem.username)">
+        <mat-icon>person</mat-icon>
+        <span>unfollow</span>
+      </button>
+      <h4 class="name" >{{elem.username}}</h4>
+      <h4 class="name" >{{elem.headline}}</h4>
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+</body>
+</html>

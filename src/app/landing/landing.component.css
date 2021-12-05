@@ -1,0 +1,11 @@
+body,html{
+  height: calc(100vh - 98px);
+  margin: 0;
+  padding: 0;
+}
+
+.errorInfo{
+  color: red;
+}
+
+/*test hw5 repo*/

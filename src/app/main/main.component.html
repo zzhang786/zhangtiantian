@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="Zan Zhang" Email="zz93@rice.edu" content="width=device-width, initial-scale=1">
+  <title>main</title>
+  <!--load bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!--# load bootstrap-->
+</head>
+
+
+<body class="page1">
+<div class = "row">
+  <div class="column">
+    <div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span (click)="uploadPic()" class="input-group-text upload" id="btnUpload">Upload</span>
+        </div>
+        <div class="custom-file">
+          <form action="http://localhost:3000/image" method="post" enctype="multipart/form-data">
+            <input (change)="fileChange($event)" type="file" class="custom-file-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01">
+          </form>
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <input type="button" class="btn btn-success" value = "What's Up:" (click)="changeStatus()">
+      <input type="text" name="comment_author" value="" tabindex="1" required="required"
+             [(ngModel)]="userInfo.status">
+    </div>&nbsp;
+    <div>
+      <input type="button" class="btn btn-success" value = "Search Content" (click)="search()">
+      <input type="text" name="comment_author" value="" tabindex="1" required="required"
+             [(ngModel)]="keyWords">
+    </div>
+    <div id="respond"><br>
+      <form action="commentLater.php" method="post" id="commentform">
+        <label for="comment_author" >Enter your Title:</label>
+        <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required"
+               [(ngModel)]="newTitle">
+        <br>
+        <label for="comment" class="required"><br>
+          Enter your content: </label><br>
+        <textarea name="comment" id="comment" rows="10" tabindex="4" required="required"
+                  [(ngModel)]="newContent"></textarea>
+        <br>
+        <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
+        <input name="submit" type="button" value="Post" (click)="post()"/>
+        <input name="submit" type="button" value="cancel" (click)="clear()"/>
+      </form>
+    </div>
+  </div>
+  <div class="column" id="follower_list">
+    <tr>
+      <th class="col-4">Followers</th>
+    </tr>
+    <tr *ngFor="let elem of followed">
+      <td class = "col-4">{{elem.username}}</td>
+    </tr>
+  </div>
+</div>
+
+
+<div class="post">
+  <div *ngFor="let elemPost of listItem" class="col-md-4">
+    <div class="card mb-4 box-shadow" id = post_div>
+      <p class="user_name">{{elemPost.author}}</p>
+      <p class="user_name">{{elemPost.time}}</p>
+      <div class="card-body">
+        <p class="title">{{elemPost.title}}</p>
+        <img  class="rounded" alt="Picture Not Found" style="width: 150px;height: 150px" src={{elemPost.img}}>
+        <p class="card-text">{{elemPost.text}}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <input id=comment{{elemPost.id}} type="text" placeholder="Your comment">
+            <button type="button" class="btn btn-sm btn-success btn-outline-secondary" (click)="addComment(elemPost.id)" >Comment</button>
+          </div>
+        </div>
+      </div>
+      <div class = "commentDiv" >
+        <div class="row" *ngFor="let comment of elemPost.comments">
+          <p class="col-3 commentRow" style="color: blue">{{comment.username}}</p>
+          <p class="col-6 commentRow">{{comment.comment}}</p>
+          <div class="col-3 commentRow">
+            <button type="button" class="btn-danger" (click)="modifyComment(elemPost,comment)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

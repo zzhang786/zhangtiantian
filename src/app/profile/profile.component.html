@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="Zan Zhang" Email="zz93@rice.edu" content="width=device-width, initial-scale=1">
+  <title>Landding</title>
+
+<!--  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">-->
+  <!--load bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!--# load bootstrap-->
+</head>
+
+
+<body>
+<div class="row">
+  <div class="col-sm-4">
+    <img src={{imgSrc}} style="width: 200px;height: 200px">
+  </div>
+
+  <div class="col-sm-8">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span (click)="uploadPic()" class="input-group-text upload" id="btnUpload">Upload Image</span>
+      </div>
+      <div class="custom-file">
+        <form action="http://localhost:3000/image" method="post" enctype="multipart/form-data">
+          <input (change)="fileChange($event)" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+        </form>
+        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<form [formGroup]="regForm" (ngSubmit)="onSave(regForm.value)" id="regForm">
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-3">Attributes</th>
+        <th class="col-5">Value</th>
+        <th class="col-4">Warning</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="col-3">displayName</td>
+        <td class="col-5">
+          <input type="text" id="displayName" class="form-control" placeholder="your displayName"  formControlName="displayName" [(ngModel)]="displayName">
+        </td>
+        <td class="col-4 errorInfo"> <p [hidden]="!regForm.hasError('required','displayName')">username is needed</p> </td>
+      </tr>
+
+      <tr>
+        <td class="col-3">emailAddress</td>
+        <td class="col-5">
+          <input type="text" id="emailAddress" class="form-control" placeholder="your emailAddress"  formControlName="emailAddress" [(ngModel)]="emailAddress">
+        </td>
+        <td class="col-4 errorInfo"> <span [hidden]="!regForm.hasError('validEmail','emailAddress')"></span>{{regForm.getError('validEmail','emailAddress')?.info}} </td>
+      </tr>
+
+      <tr>
+        <td class="col-3">phoneNumber</td>
+        <td class="col-5">
+          <input type="text" id="phoneNumber" class="form-control" placeholder="your phoneNumber"  formControlName="phoneNumber" [(ngModel)]="phoneNumber">
+        </td>
+        <td class="col-4 errorInfo"> <span [hidden]="!regForm.hasError('validNumber','phoneNumber')">{{regForm.getError('validNumber','phoneNumber')?.info}}</span> </td>
+      </tr>
+
+      <tr>
+        <td class="col-3">zipcode</td>
+        <td class="col-5">
+          <input type="text" id="zipcode" class="form-control" placeholder="your zipcode"  formControlName="zipcode" [(ngModel)]="zipcode">
+        </td>
+        <td class="col-4 errorInfo"> <p [hidden]="!regForm.hasError('minlength','zipcode')&&!regForm.hasError('maxlength','zipcode')">zipcode is invalid</p> </td>
+      </tr>
+
+      <tr>
+        <td class="col-3">password</td>
+        <td class="col-5">
+          <input type="password" id="password" class="form-control" placeholder="your password"  formControlName="password" [(ngModel)]="password">
+        </td>
+        <td class="col-4 errorInfo"> <p [hidden]="!regForm.hasError('required','password')">password is needed</p> </td>
+      </tr>
+
+      <tr>
+        <td class="col-3">passwordConfirmation</td>
+        <td class="col-5">
+          <input type="password" id="passwordConfirmation" class="form-control" placeholder="your passwordConfirmation"  formControlName="passwordConfirmation" [(ngModel)]="passwordConfirmation">
+        </td>
+        <td class="col-4 errorInfo"> <p *ngIf="regForm.hasError('samePwd','')">{{regForm.getError('samePwd','')?.info}}</p> </td>
+      </tr>
+
+
+      </tbody>
+
+    </table>
+
+    <!--  <input  type="gone" name="regTime" id="regTime" style="display:none" formControlName="regTime">-->
+
+    <div>
+      <button type="submit" class="btn btn-success" id="submitBtn" style="float: right">save</button>
+    </div>
+  </div>
+</form>
+<div>
+  <input type="text" placeholder="username" style="width:100%" id="linkUsername"><br/>
+  <input type="text" placeholder="password" style="width:100%" id="linkPwd"><br/>
+  <button type="button" class="btn btn-success" style="margin-bottom: 5px" (click)="link()">Link to an existed account</button>
+  <button type="button" class="btn btn-danger" style="margin-bottom: 5px; float: right" (click)="unlink()">Unlink to the account</button>
+
+</div>
+
+
+</body>
+</html>

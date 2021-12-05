@@ -1,0 +1,113 @@
+body,html{
+  height: calc(100vh - 98px);
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  margin-left:5px;
+  margin-right:5px;
+
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+div.all{
+  position: initial;
+  width:80%;
+  height:90%;
+  margin-left: 10%;
+
+  /*overflow: scroll;*/
+  overflow-y: auto;
+}
+.post_img{
+  width: 150px;
+  height: 150px;
+}
+#follower_list{
+  font-size:large;
+
+}
+.column{
+  border:10px outset #509E5E;
+  background-color: #AEE38B;
+  font-size:large;
+  block-size: auto;
+
+}
+
+.post{
+  text-align:center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  width: border-box;
+  height: auto;
+  background-color: #AEE38B;
+}
+#post_div{
+  background-color:#AEE38B;
+  width: 650px;
+  border:10px outset #509E5E;
+  background-color: #AEE38B;
+}
+
+button {
+  position: absolute;
+  top:10px;
+  right: 0;
+  background-color:#509E5E;
+  color: lightyellow;
+  font-style: italic;
+  font-weight: bold;
+
+  font-size: 10px;
+  cursor: pointer;
+
+  height:30px;
+  width:80px;
+  margin: 0 auto;
+}
+.btn-group{
+  text-align: center;
+
+}
+.commentDiv{
+  background-color:#509E5E;
+  font-style: italic;
+  overflow-y: auto;
+  height: 100px;
+}
+.btn-outline-secondary {
+  border-radius: 30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
